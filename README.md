@@ -9,26 +9,25 @@ VILCA TORRES DIEGO RENZO | 19160038
 
 ## LIBRERÍAS QUE SE USARON
 
-```library(raster)```: Leer, escribir, manipular, analizar y modelar datos espaciales. El paquete implementa funciones básicas y de alto nivel para datos ráster y para operaciones de datos vectoriales como intersecciones.
+- ```library(raster)```: Leer, escribir, manipular, analizar y modelar datos espaciales. El paquete implementa funciones básicas y de alto nivel para datos ráster y para operaciones de datos vectoriales como intersecciones.
 
-```library(tmap)```: Los mapas temáticos son mapas geográficos en los que se visualizan distribuciones de datos espaciales. Este paquete ofrece un enfoque flexible, basado en capas y fácil de usar para crear mapas temáticos, como coropletas y mapas de burbujas.
+- ```library(tmap)```: Los mapas temáticos son mapas geográficos en los que se visualizan distribuciones de datos espaciales. Este paquete ofrece un enfoque flexible, basado en capas y fácil de usar para crear mapas temáticos, como coropletas y mapas de burbujas.
 
-```library(rcartocolor)```: Proporciona esquemas de color para mapas y otros gráficos diseñados por 'CARTO' como se describe en [https://carto.com/carto-colors/]
-. Incluye cuatro tipos de paletas: agregación, divergente, cualitativa y cuantitativa.
+- ```library(rcartocolor)```: Proporciona esquemas de color para mapas y otros gráficos diseñados por 'CARTO' como se describe en [https://carto.com/carto-colors/]. Incluye cuatro tipos de paletas: agregación, divergente, cualitativa y cuantitativa.
 
-```library(sf)```: Soporte para funciones simples, una forma estandarizada de codificar datos vectoriales espaciales. Se une a 'GDAL' para leer y escribir datos, a 'GEOS' para operaciones geométricas y a 'PROJ' para conversiones de proyección y transformaciones de datum. Utiliza por defecto el paquete 's2' para operaciones de geometría esférica en coordenadas elipsoidales (largo / latitud).
+- ```library(sf)```: Soporte para funciones simples, una forma estandarizada de codificar datos vectoriales espaciales. Se une a 'GDAL' para leer y escribir datos, a 'GEOS' para operaciones geométricas y a 'PROJ' para conversiones de proyección y transformaciones de datum. Utiliza por defecto el paquete 's2' para operaciones de geometría esférica en coordenadas elipsoidales (largo / latitud).
 
-```library(rgdal)```: Proporciona enlaces a la biblioteca de abstracción de datos 'geoespacial' ('GDAL') (> = 1.11.4) y acceso a operaciones de proyección / transformación desde la biblioteca 'PROJ'.
+- ```library(rgdal)```: Proporciona enlaces a la biblioteca de abstracción de datos 'geoespacial' ('GDAL') (> = 1.11.4) y acceso a operaciones de proyección / transformación desde la biblioteca 'PROJ'.
 
-```library(dplyr)```: Una herramienta rápida y consistente para trabajar con marcos de datos como objetos, tanto en memoria como fuera de ella.
+- ```library(dplyr)```: Una herramienta rápida y consistente para trabajar con marcos de datos como objetos, tanto en memoria como fuera de ella.
 
-```library(RColorBrewer)```: Proporciona esquemas de color para mapas (y otros gráficos) diseñados por Cynthia Brewer como se describe en [http://colorbrewer2.org]
+- ```library(RColorBrewer)```: Proporciona esquemas de color para mapas (y otros gráficos) diseñados por Cynthia Brewer como se describe en [http://colorbrewer2.org]
 
-```library(tidyverse)```: El 'tidyverse' es un conjunto de paquetes que funcionan en armonía porque comparten representaciones de datos comunes y diseño de 'API'. Este paquete está diseñado para facilitar la instalación y la carga de varios paquetes 'tidyverse' en un solo paso. Obtenga más información sobre el 'tidyverse' en [https://www.tidyverse.org].
+- ```library(tidyverse)```: El 'tidyverse' es un conjunto de paquetes que funcionan en armonía porque comparten representaciones de datos comunes y diseño de 'API'. Este paquete está diseñado para facilitar la instalación y la carga de varios paquetes 'tidyverse' en un solo paso. Obtenga más información sobre el 'tidyverse' en [https://www.tidyverse.org].
 
-```library(pacman)```: Herramientas para realizar de manera más conveniente las tareas asociadas con los paquetes complementarios. pacman envuelve convenientemente las funciones relacionadas con la biblioteca y el paquete y las nombra de una manera intuitiva y coherente. Busca combinar la funcionalidad de funciones de nivel inferior que pueden acelerar el flujo de trabajo.
+- ```library(pacman)```: Herramientas para realizar de manera más conveniente las tareas asociadas con los paquetes complementarios. pacman envuelve convenientemente las funciones relacionadas con la biblioteca y el paquete y las nombra de una manera intuitiva y coherente. Busca combinar la funcionalidad de funciones de nivel inferior que pueden acelerar el flujo de trabajo.
 
-```library(ggplot2)```: Un sistema para crear gráficos 'declarativamente', basado en "La gramática de los gráficos". Usted proporciona los datos, le dice a 'ggplot2' cómo asignar variables a la estética, qué primitivas gráficas usar y se encarga de los detalles. 
+- ```library(ggplot2)```: Un sistema para crear gráficos 'declarativamente', basado en "La gramática de los gráficos". Usted proporciona los datos, le dice a 'ggplot2' cómo asignar variables a la estética, qué primitivas gráficas usar y se encarga de los detalles. 
 
 
 ### ÍNDICE DE ARIDEZ DE MARTONNE DE LA PROVINCIA DE PISCO
@@ -49,6 +48,14 @@ prp_stack <- stack(grids)
 prp_anual <- sum(prp_stack)
 plot(prp_anual)
 ```
+![](D:/Wendy/Downloads/NDVI/F1.png)
+
+
+
+
+
+
+
 -  Para la provincia de Pisco
 ```
 prov <- readOGR("E:/TAREA BIOGEO/Materiales/PROVINCIAS.shp")
