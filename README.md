@@ -48,22 +48,22 @@ prp_stack <- stack(grids)
 prp_anual <- sum(prp_stack)
 plot(prp_anual)
 ```
-![](D:/Wendy/Downloads/NDVI/F1.png)
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/F1.jpeg)
 
-
-
-
-
-
-
--  Para la provincia de Pisco
+-  Para el mapa de provincias
 ```
 prov <- readOGR("E:/TAREA BIOGEO/Materiales/PROVINCIAS.shp")
 plot(prov)
+```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/F2.jpeg)
 
+- Para el mapa de la provincia de Pisco
+```
 pisco <- prov[prov$PROVINCIA == "PISCO",]
 plot(pisco)
 ```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/F3.jpeg)
+
 - Guardando el raster
 ```
 writeRaster(prp_anual_pisco,filename = "Precipitacion anual pisco 2014",format = "GTiff",overwrite =TRUE)
@@ -79,6 +79,13 @@ plot(tmin_prom_anual_pisco)
 plot(pisco, add = TRUE)
 writeRaster(tmin_prom_anual_pisco,filename = "Temperatura promedio minima 2014",format = "GTiff",overwrite = TRUE)
 ```
+
+
+
+
+
+
+
 - Hallando la temperatura maxima anual
 ```
 tmax <- list.files('C:/Users/USUARIO/Documents/TAREA PROGRAMACION/DATOS/2014-2018tmax/2014', full.names = TRUE, pattern = "*.tif")
