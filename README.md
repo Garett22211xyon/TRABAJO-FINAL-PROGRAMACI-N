@@ -37,11 +37,11 @@ VILCA TORRES DIEGO RENZO | 19160038
 efectivo en zonas tropicales y subtropicales.**
 
 -  Cargando raster de precipitación
-```{raster}
+```
 grids <- list.files('C:/Users/USUARIO/Documents/TAREA PROGRAMACION/DATOS/2014-2018 PRECIPITACION/2014', full.names = TRUE, pattern = "*.tif")
 ```
 -  Raster stack
-```{raster}
+```
 prp_stack <- stack(grids)
 ```
 -  Suma de precipitación anual
@@ -50,7 +50,7 @@ prp_anual <- sum(prp_stack)
 plot(prp_anual)
 ```
 -  Para la provincia de Pisco
-```{raster}
+```
 prov <- readOGR("E:/TAREA BIOGEO/Materiales/PROVINCIAS.shp")
 plot(prov)
 
@@ -58,11 +58,11 @@ pisco <- prov[prov$PROVINCIA == "PISCO",]
 plot(pisco)
 ```
 - Guardando el raster
-```{raster}
+```
 writeRaster(prp_anual_pisco,filename = "Precipitacion anual pisco 2014",format = "GTiff",overwrite =TRUE)
 ```
 -  Hallando la temperatura minima anual
-```{raster}
+```
 tmn <- list.files('C:/Users/USUARIO/Documents/TAREA PROGRAMACION/DATOS/2014-2018tmax/2014', full.names = TRUE, pattern = "*.tif")
 tmin_stack <- stack(tmn)
 tmin_anual <- sum(tmin_stack)
@@ -73,7 +73,7 @@ plot(pisco, add = TRUE)
 writeRaster(tmin_prom_anual_pisco,filename = "Temperatura promedio minima 2014",format = "GTiff",overwrite = TRUE)
 ```
 - Hallando la temperatura maxima anual
-```{raster}
+```
 tmax <- list.files('C:/Users/USUARIO/Documents/TAREA PROGRAMACION/DATOS/2014-2018tmax/2014', full.names = TRUE, pattern = "*.tif")
 tmax_stack <- stack(tmax)
 tmax_anual <- sum(tmax_stack)
@@ -88,19 +88,19 @@ writeRaster(tmax_prom_anual_pisco,filename = "Temperatura promedio maxima 2014",
 tmd <- (tmin_prom_anual_pisco + tmax_prom_anual_pisco )/2
 ```
 - Realizando las operaciones correspondientes
-```{raster}
+```
 IA_2014 <- prp_anual_pisco/(tmd + 10)
 plot(IA_2014, main = "Indice de Aridez de Martonne 2014")
 plot(pisco, add = TRUE)
 ```
 - Cortando
-```{raster}
+```
 IA_2014_f <- mask(IA_2014,pisco)
 plot(IA_2014_f, main = "Indice de Aridez de Martonne 2014")
 plot(pisco, add = TRUE)
 ```
 - Procedemos a guardar en formato tiff
-```{raster}
+```
 writeRaster(IA_2014,filename = "Indice de Aridez de Martonne",format = "GTiff",overwrite = TRUE)
 ```
 
@@ -110,38 +110,38 @@ writeRaster(IA_2014,filename = "Indice de Aridez de Martonne",format = "GTiff",o
 temperatura.**
 
 -  Cargando raster de precipitación
-```{raster}
+```
 grids <- list.files('D:/TRABAJO FINALPROGRAMACIÓN/datos/PRECIPITACION 2016', full.names = TRUE, pattern = "*.tif")
 ```
 -  Raster stack
-```{raster}
+```
 prp_stack <- stack(grids)
 ```
 -  Suma de precipitación anual
-```{raster}
+```
 prp_anual <- sum(prp_stack)
 plot (prp_anual)
 ```
 -  Para la provincia de Pisco
-```{raster}
+```
 prov <- readOGR("D:/TRABAJO FINALPROGRAMACIÓN/MATERIALES/PROVINCIAS.shp")
 plot(prov)
 
 pisco <- prov[prov$PROVINCIA == "PISCO",]
 plot(pisco)
 ```
-- Cortando la provicnia de Pisco
-```{raster}
+- Cortando la provincia de Pisco
+```
 prp_anual_pisco <- crop(prp_anual,pisco)
 plot(prp_anual_pisco)
 plot(pisco, add = TRUE)
 ```
 - Guardando el raster
-```{raster}
+```
 writeRaster(prp_anual_pisco,filename = "Precipitacion anual pisco 2016",format = "GTiff",overwrite = TRUE)
 ```
 -  Hallando la temperatura minima anual
-```{raster}
+```
 tmn <- list.files('D:/TRABAJO FINALPROGRAMACIÓN/datos/T° MINIMA 2016/2016', full.names = TRUE, pattern = "*.tif")
 tmin_stack <- stack(tmn)
 tmin_anual <- sum(tmin_stack)
@@ -152,7 +152,7 @@ plot(pisco, add = TRUE)
 writeRaster(tmin_prom_anual_pisco,filename = "Temperatura promedio minima 2016",format = "GTiff",overwrite = TRUE)
 ```
 - Hallando la temperatura maxima anual
-```{raster}
+```
 tmax <- list.files('D:/TRABAJO FINALPROGRAMACIÓN/datos/T° MAXIMA 2016/2016', full.names = TRUE, pattern = "*.tif")
 tmax_stack <- stack(tmax)
 tmax_anual <- sum(tmax_stack)
@@ -163,14 +163,96 @@ plot(pisco, add = TRUE)
 writeRaster(tmax_prom_anual_pisco,filename = "Temperatura promedio maxima 2016",format = "GTiff",overwrite = TRUE)
 ```
 - Hallando la temperatura media anual
-```{raster}
+```
 tmd <- (tmin_prom_anual_pisco + tmax_prom_anual_pisco )/2
 writeRaster(tmd,filename = "Temperatura promedio anual 2016",format = "GTiff",overwrite = TRUE)
 ```
 - Ploteando el raster
-```{raster}
+```
 danreven <- (tmd/prp_anual_pisco)*100
 plot(danreven)
 plot(pisco, add = TRUE)
 ```
+
+### ÍNDICE DE VEGETACIÓN DIFERENCIADA NORMALIZADA DE LA PROVINCIA DE PIURA (NDVI)
+
+**Se suponía que era de Pisco, pero mis neuronas hicieron la matazion y se confundieron con Piura profesor, disculpe :"v. Pero los comandos como tal funcionan para cualquier departarmento, la cuestión es descargar la data :")**
+
+- Descomprimiendo archivos LANDSAT
+```
+ZIPfile1 <- 'LC08_L1TP_011064_20161229_20170314_01_T1.tar.gz'
+untar(ZIPfile1, exdir = ZIPfile1 %>% strsplit('.tar') %>% sapply('[',1))
+
+ZIPfile2 <- 'LC08_L1TP_011063_20161229_20170314_01_T1.tar.gz'
+untar(ZIPfile2, exdir = ZIPfile2 %>% strsplit('.tar') %>% sapply('[',1))
+
+ZIPfile3 <- 'LC08_L1TP_010064_20161222_20180130_01_T1.tar.gz'
+untar(ZIPfile3, exdir = ZIPfile3 %>% strsplit('.tar') %>% sapply('[',1))
+
+ZIPfile4 <- 'LC08_L1GT_010063_20161222_20180130_01_T2.tar.gz'
+untar(ZIPfile4, exdir = ZIPfile4 %>% strsplit('.tar') %>% sapply('[',1))
+```
+- Lectura de datos LANDSAT
+```
+mtlfile1 <- 'LC08_L1TP_011064_20161229_20170314_01_T1/LC08_L1TP_011064_20161229_20170314_01_T1_MTL.txt'
+MTL1 <- readMeta(mtlfile1)
+
+mtlfile2 <- 'LC08_L1TP_011063_20161229_20170314_01_T1/LC08_L1TP_011063_20161229_20170314_01_T1_MTL.txt'
+MTL2 <- readMeta(mtlfile2)
+
+mtlfile3 <- 'LC08_L1TP_010064_20161222_20180130_01_T1/LC08_L1TP_010064_20161222_20180130_01_T1_MTL.txt'
+MTL3 <- readMeta(mtlfile3)
+
+mtlfile4 <- 'LC08_L1GT_010063_20161222_20180130_01_T2/LC08_L1GT_010063_20161222_20180130_01_T2_MTL.txt'
+MTL4 <- readMeta(mtlfile4)
+```
+- Lectura de datos vectoriales
+```
+peru <- st_read("D:/NDVI/provincias/provincias.shp")
+piura <- peru[peru$PROVINCIA == "PIURA",]
+sisref <- '+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs'
+sisref2 <- '+proj=utm +zone=17 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0'
+```
+- Lectura de imagen espectral del landsat 
+```
+lsat1 <- stackMeta(mtlfile1) %>% crop(piura %>% st_transform(sisref))
+lsat2 <- stackMeta(mtlfile2) %>% crop(piura %>% st_transform(sisref))
+lsat3 <- stackMeta(mtlfile3) %>% crop(piura %>% st_transform(sisref))
+lsat4 <- stackMeta(mtlfile4) %>% crop(piura %>% st_transform(sisref))
+```
+
+- Cálculo de la reflectividad aparente
+```
+lsat_coat1 <- radCor(lsat1,MTL1,"dos",atmosphere = "clear",clamp = T)[[c(1:7)]]
+lsat_coat1 <- lsat_coat1 %>% projectRaster(crs = crs(sisref2))
+lsat_coat2 <- radCor(lsat2,MTL2,"dos",atmosphere = "clear",clamp = T)[[c(1:7)]]
+lsat_coat2 <- lsat_coat2 %>% projectRaster(crs = crs(sisref2))
+lsat_coat3 <- radCor(lsat3,MTL3,"dos",atmosphere = "clear",clamp = T)[[c(1:7)]]
+lsat_coat3 <- lsat_coat3 %>% projectRaster(crs = crs(sisref2))
+lsat_coat4 <- radCor(lsat4,MTL4,"dos",atmosphere = "clear",clamp = T)[[c(1:7)]]
+lsat_coat4 <- lsat_coat4 %>% projectRaster(crs = crs(sisref2))
+```
+
+- Cálculo NDVI
+```
+ndvi1 <- (lsat_coat1[[4]]-lsat_coat1[[3]])/(lsat_coat1[[4]]+lsat_coat1[[3]])
+ndvi2 <- (lsat_coat2[[4]]-lsat_coat2[[3]])/(lsat_coat2[[4]]+lsat_coat2[[3]])
+ndvi3 <- (lsat_coat3[[4]]-lsat_coat3[[3]])/(lsat_coat3[[4]]+lsat_coat3[[3]])
+ndvi4 <- (lsat_coat4[[4]]-lsat_coat4[[3]])/(lsat_coat4[[4]]+lsat_coat4[[3]])
+
+piura<- CRS(sisref2)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
