@@ -28,6 +28,8 @@ VILCA TORRES DIEGO RENZO | 19160038
 
 ```library(pacman)```: Herramientas para realizar de manera más conveniente las tareas asociadas con los paquetes complementarios. pacman envuelve convenientemente las funciones relacionadas con la biblioteca y el paquete y las nombra de una manera intuitiva y coherente. Busca combinar la funcionalidad de funciones de nivel inferior que pueden acelerar el flujo de trabajo.
 
+```library(ggplot2)```: Un sistema para crear gráficos 'declarativamente', basado en "La gramática de los gráficos". Usted proporciona los datos, le dice a 'ggplot2' cómo asignar variables a la estética, qué primitivas gráficas usar y se encarga de los detalles. 
+
 
 ### ÍNDICE DE ARIDEZ DE MARTONNE DE LA PROVINCIA DE PISCO
 
