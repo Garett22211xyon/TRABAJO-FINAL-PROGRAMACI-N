@@ -176,7 +176,7 @@ plot(pisco, add = TRUE)
 
 ### ÍNDICE DE VEGETACIÓN DIFERENCIADA NORMALIZADA DE LA PROVINCIA DE PIURA (NDVI)
 
-**Se suponía que era de Pisco, pero mis neuronas hicieron la matazion y se confundieron con Piura profesor, disculpe :"v. Pero los comandos como tal funcionan para cualquier departarmento, la cuestión es descargar la data :")**
+**Se suponía que era de Pisco, pero hubo una confusion con Piura profesor, disculpe. Pero los comandos como tal funcionan para cualquier departarmento, la cuestión es descargar la data :")**
 
 - Descomprimiendo archivos LANDSAT
 ```
