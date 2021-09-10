@@ -79,12 +79,9 @@ plot(tmin_prom_anual_pisco)
 plot(pisco, add = TRUE)
 writeRaster(tmin_prom_anual_pisco,filename = "Temperatura promedio minima 2014",format = "GTiff",overwrite = TRUE)
 ```
+![Mapa de temperatura máxima](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/F4.jpeg)
 
-
-
-
-
-
+![Mapa de temperatura mínima de la provincia de Pisco](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/F5.jpeg)
 
 - Hallando la temperatura maxima anual
 ```
@@ -97,6 +94,9 @@ plot(tmax_prom_anual_pisco)
 plot(pisco, add = TRUE)
 writeRaster(tmax_prom_anual_pisco,filename = "Temperatura promedio maxima 2014",format = "GTiff",overwrite = TRUE)
 ```
+![Mapa de temperatura mínima](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/F6.jpeg)
+![Mapa de temperatura mínima de la provincia de Pisco](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/F7.jpeg)
+
 - Hallando la temperatura media anual
 ```{raster}
 tmd <- (tmin_prom_anual_pisco + tmax_prom_anual_pisco )/2
@@ -107,12 +107,16 @@ IA_2014 <- prp_anual_pisco/(tmd + 10)
 plot(IA_2014, main = "Indice de Aridez de Martonne 2014")
 plot(pisco, add = TRUE)
 ```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/F8.jpeg)
+
 - Cortando
 ```
 IA_2014_f <- mask(IA_2014,pisco)
 plot(IA_2014_f, main = "Indice de Aridez de Martonne 2014")
 plot(pisco, add = TRUE)
 ```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/F9.jpeg)
+
 - Procedemos a guardar en formato tiff
 ```
 writeRaster(IA_2014,filename = "Indice de Aridez de Martonne",format = "GTiff",overwrite = TRUE)
@@ -136,6 +140,8 @@ prp_stack <- stack(grids)
 prp_anual <- sum(prp_stack)
 plot (prp_anual)
 ```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/R1.jpeg)
+
 -  Para la provincia de Pisco
 ```
 prov <- readOGR("D:/TRABAJO FINALPROGRAMACIÓN/MATERIALES/PROVINCIAS.shp")
@@ -144,12 +150,18 @@ plot(prov)
 pisco <- prov[prov$PROVINCIA == "PISCO",]
 plot(pisco)
 ```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/R2.jpeg)
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/R7.jpeg)
+
 - Cortando la provincia de Pisco
 ```
 prp_anual_pisco <- crop(prp_anual,pisco)
 plot(prp_anual_pisco)
 plot(pisco, add = TRUE)
 ```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/R3.jpeg)
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/R4.jpeg)
+
 - Guardando el raster
 ```
 writeRaster(prp_anual_pisco,filename = "Precipitacion anual pisco 2016",format = "GTiff",overwrite = TRUE)
