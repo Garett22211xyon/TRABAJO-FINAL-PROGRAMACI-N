@@ -25,8 +25,6 @@ VILCA TORRES DIEGO RENZO | 19160038
 
 - ```library(tidyverse)```: El 'tidyverse' es un conjunto de paquetes que funcionan en armonía porque comparten representaciones de datos comunes y diseño de 'API'. Este paquete está diseñado para facilitar la instalación y la carga de varios paquetes 'tidyverse' en un solo paso. Obtenga más información sobre el 'tidyverse' en [https://www.tidyverse.org].
 
-- ```library(pacman)```: Herramientas para realizar de manera más conveniente las tareas asociadas con los paquetes complementarios. pacman envuelve convenientemente las funciones relacionadas con la biblioteca y el paquete y las nombra de una manera intuitiva y coherente. Busca combinar la funcionalidad de funciones de nivel inferior que pueden acelerar el flujo de trabajo.
-
 - ```library(ggplot2)```: Un sistema para crear gráficos 'declarativamente', basado en "La gramática de los gráficos". Usted proporciona los datos, le dice a 'ggplot2' cómo asignar variables a la estética, qué primitivas gráficas usar y se encarga de los detalles. 
 
 
@@ -199,6 +197,8 @@ danreven <- (tmd/prp_anual_pisco)*100
 plot(danreven)
 plot(pisco, add = TRUE)
 ```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/R5.jpeg)
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/R6.jpeg)
 
 ### ÍNDICE DE VEGETACIÓN DIFERENCIADA NORMALIZADA DE LA PROVINCIA DE PIURA (NDVI)
 
@@ -239,6 +239,9 @@ piura <- peru[peru$PROVINCIA == "PIURA",]
 sisref <- '+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs'
 sisref2 <- '+proj=utm +zone=17 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0'
 ```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/A1.jpeg)
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/A2.jpeg)
+
 - Lectura de imagen espectral del landsat 
 ```
 lsat1 <- stackMeta(mtlfile1) %>% crop(piura %>% st_transform(sisref))
@@ -246,8 +249,17 @@ lsat2 <- stackMeta(mtlfile2) %>% crop(piura %>% st_transform(sisref))
 lsat3 <- stackMeta(mtlfile3) %>% crop(piura %>% st_transform(sisref))
 lsat4 <- stackMeta(mtlfile4) %>% crop(piura %>% st_transform(sisref))
 ```
-
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/A3.jpeg)
 - Cálculo de la reflectividad aparente
+```
+lsat_ref1 <- radCor(lsat1,MTL1,"apref")
+lsat_ref2 <- radCor(lsat2,MTL2,"apref")
+lsat_ref3 <- radCor(lsat3,MTL3,"apref")
+lsat_ref4 <- radCor(lsat4,MTL4,"apref")
+plot(lsat_ref1)
+```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/A4.jpeg)
+- Corrección atmosferica
 ```
 lsat_coat1 <- radCor(lsat1,MTL1,"dos",atmosphere = "clear",clamp = T)[[c(1:7)]]
 lsat_coat1 <- lsat_coat1 %>% projectRaster(crs = crs(sisref2))
@@ -258,7 +270,14 @@ lsat_coat3 <- lsat_coat3 %>% projectRaster(crs = crs(sisref2))
 lsat_coat4 <- radCor(lsat4,MTL4,"dos",atmosphere = "clear",clamp = T)[[c(1:7)]]
 lsat_coat4 <- lsat_coat4 %>% projectRaster(crs = crs(sisref2))
 ```
-
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/A5.jpeg)
+- Nombre de las bandas
+```
+names(lsat_coat1) <- paste('B',c(1:7),sep = '')
+names(lsat_coat2) <- paste('B',c(1:7),sep = '')
+names(lsat_coat3) <- paste('B',c(1:7),sep = '')
+names(lsat_coat4) <- paste('B',c(1:7),sep = '')
+```
 - Cálculo NDVI
 ```
 ndvi1 <- (lsat_coat1[[4]]-lsat_coat1[[3]])/(lsat_coat1[[4]]+lsat_coat1[[3]])
@@ -268,17 +287,45 @@ ndvi4 <- (lsat_coat4[[4]]-lsat_coat4[[3]])/(lsat_coat4[[4]]+lsat_coat4[[3]])
 
 piura<- CRS(sisref2)
 ```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/A6.jpeg)
+- Corte raster NDVI piura
+```
+cortndvi1 <- raster::mask(ndvi1, piura)
+cortndvi2 <- raster::mask(ndvi2, piura)
+cortndvi3 <- raster::mask(ndvi3, piura)
+cortndvi4 <- raster::mask(ndvi4, piura)
+plot(cortndvi1)
+```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/A7.jpeg)
+- Se une los raster cortados 
+```
+piuraunid <- merge(cortndvi1,cortndvi2,cortndvi3,cortndvi4)
+plot(piuraunid)
+```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/A8.jpeg)
+- Otros indices espectrales 
+```
+ndvi1 <- (lsat_coat1[[4]]-lsat_coat1[[3]])/(lsat_coat1[[4]]+lsat_coat1[[3]])
+ndwi1 <- (lsat_coat1[[3]]-lsat_coat1[[5]])/(lsat_coat1[[3]]+lsat_coat1[[5]])
+ndwi2 <- (lsat_coat2[[3]]-lsat_coat2[[5]])/(lsat_coat2[[3]]+lsat_coat2[[5]])
+ndwi3 <- (lsat_coat3[[3]]-lsat_coat3[[5]])/(lsat_coat3[[3]]+lsat_coat3[[5]])
+ndwi4 <- (lsat_coat4[[3]]-lsat_coat4[[5]])/(lsat_coat4[[3]]+lsat_coat4[[5]])
+plot(ndwi1)
 
+```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/A9.jpeg)
 
+```
+cortndwi1 <- raster::mask(ndwi1, piura)
+cortndwi2 <- raster::mask(ndwi2, piura)
+cortndwi3 <- raster::mask(ndwi3, piura)
+cortndwi4 <- raster::mask(ndwi4, piura)
+plot(cortndwi3)
+```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/A10.jpeg)
 
-
-
-
-
-
-
-
-
-
-
-
+```
+piuraunid2 <- merge(cortndwi1,cortndwi2,cortndwi3,cortndwi4)
+plot(piuraunid2)
+```
+![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/A11.jpeg)
