@@ -191,13 +191,15 @@ writeRaster(tmax_prom_anual_pisco,filename = "Temperatura promedio maxima 2016",
 tmd <- (tmin_prom_anual_pisco + tmax_prom_anual_pisco )/2
 writeRaster(tmd,filename = "Temperatura promedio anual 2016",format = "GTiff",overwrite = TRUE)
 ```
-- Ploteando el raster
+- Fórmula de Dantin-Revenga
 ```
 danreven <- (tmd/prp_anual_pisco)*100
 plot(danreven)
-plot(pisco, add = TRUE)
 ```
 ![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/R5.jpeg)
+```
+plot(pisco, add = TRUE)
+```
 ![](https://github.com/Garett22211xyon/TRABAJO-FINAL-PROGRAMACI-N/blob/main/IMAGENES/R6.jpeg)
 
 ### ÍNDICE DE VEGETACIÓN DIFERENCIADA NORMALIZADA DE LA PROVINCIA DE PIURA (NDVI)
